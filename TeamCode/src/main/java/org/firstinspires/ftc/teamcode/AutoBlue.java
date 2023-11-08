@@ -132,7 +132,7 @@ public class AutoBlue extends LinearOpMode {
      *  3) Driver stops the OpMode running.
      */
     public void mecanumDrive(double speed, double distance, boolean direction) {
-        distance = distance * 45.56;
+        distance *= 45.56;
         // Ensure that the OpMode is still active
         if (opModeIsActive()) {
 
@@ -140,11 +140,12 @@ public class AutoBlue extends LinearOpMode {
             BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             while (opModeIsActive()) {
-                while (distance > BLPos){
+                while (BLPos < distance){
                     BackLeft.setPower(speed);
                     FrontLeft.setPower(speed);
                     BackRight.setPower(speed);
                     FrontRight.setPower(speed);
+                    BLPos = BackLeft.getCurrentPosition();
                 }
                 BackLeft.setPower(0);
                 FrontLeft.setPower(0);
