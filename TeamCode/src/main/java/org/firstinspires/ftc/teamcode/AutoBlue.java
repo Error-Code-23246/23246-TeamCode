@@ -119,7 +119,7 @@ public class AutoBlue extends LinearOpMode {
 
 
         waitForStart();
-
+        // Moves the robot 1-inch.
         mecanumDrive(0.5, 1, true);
     }
 
@@ -145,8 +145,12 @@ public class AutoBlue extends LinearOpMode {
                     FrontLeft.setPower(speed);
                     BackRight.setPower(speed);
                     FrontRight.setPower(speed);
+
+                    // Updates the encoder
                     BLPos = BackLeft.getCurrentPosition();
                 }
+
+                // Stop the motors
                 BackLeft.setPower(0);
                 FrontLeft.setPower(0);
                 BackRight.setPower(0);
