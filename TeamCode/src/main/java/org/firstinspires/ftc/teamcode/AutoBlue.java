@@ -62,7 +62,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 // 1 rev = 537.7 pulses = 11.8 in
 // 1 inch = 45.56 pulses
-@Autonomous(name="Robot: Auto Drive By Encoder", group="Robot")
+@Autonomous(name="AutoJava", group="Robot")
 
 public class AutoBlue extends LinearOpMode {
 
@@ -120,7 +120,7 @@ public class AutoBlue extends LinearOpMode {
 
         waitForStart();
         // Moves the robot 1-inch.
-        mecanumDrive(0.5, 1, true);
+        mecanumDrive(0.5, 5, true);
     }
 
     /*
@@ -138,13 +138,16 @@ public class AutoBlue extends LinearOpMode {
 
             double BLPos = BackLeft.getCurrentPosition();
             BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             while (opModeIsActive()) {
-                while (BLPos < distance){
+                while (BLPos < distance && opModeIsActive()){
                     BackLeft.setPower(speed);
                     FrontLeft.setPower(speed);
                     BackRight.setPower(speed);
                     FrontRight.setPower(speed);
+
+                    telemetry.addData("Motor Position:", BLPos);
+                    telemetry.update();
 
                     // Updates the encoder
                     BLPos = BackLeft.getCurrentPosition();
