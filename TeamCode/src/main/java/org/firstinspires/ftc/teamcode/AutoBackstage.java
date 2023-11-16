@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -62,9 +61,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 // 1 rev = 537.7 pulses = 11.8 in
 // 1 inch = 45.56 pulses
-@Autonomous(name="AutoBlue", group="Robot")
+@Autonomous(name="AutoBackstage", group="Robot")
 
-public class AutoBlue extends LinearOpMode {
+public class AutoBackstage extends LinearOpMode {
 
     /* Declare OpMode members. */
     private DcMotor BackLeft;
@@ -117,8 +116,8 @@ public class AutoBlue extends LinearOpMode {
 
         waitForStart();
         // Moves the robot 1-inch.
-        encoderDrive(-0.3, -58, 58, 100000);
-        encoderDrive(-0.5, 79, 79, 100000);
+        encoderDrive(-0.3, 28, 28, 100000);
+
 
 
 
