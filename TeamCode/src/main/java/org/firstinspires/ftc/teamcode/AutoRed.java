@@ -71,8 +71,10 @@ public class AutoRed extends LinearOpMode {
     private DcMotor BackRight;
     private DcMotor FrontRight;
     private DcMotor FrontLeft;
-
-
+    boolean RedAuto = false;
+    boolean BlueAuto = false;
+    boolean BackstageAuto = false;
+    boolean questionAnswered = false;
     private final ElapsedTime runtime = new ElapsedTime();
 
     // Calculate the COUNTS_PER_INCH for your specific drive train.
@@ -81,13 +83,7 @@ public class AutoRed extends LinearOpMode {
     // For example, use a value of 2.0 for a 12-tooth spur gear driving a 24-tooth spur gear.
     // This is gearing DOWN for less speed and more torque.
     // For gearing UP, use a gear ratio less than 1.0. Note this will affect the direction of wheel rotation.
-    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 1.0;     // No External Gearing.
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+
 
     @Override
     public void runOpMode() {
@@ -114,15 +110,71 @@ public class AutoRed extends LinearOpMode {
                 FrontLeft.getCurrentPosition());
         telemetry.update();
 
+        telemetry.addLine("Auto Blue -> Dpad Up;");
+        telemetry.addLine("Auto Red -> Dpad Right;");
+        telemetry.addLine("Auto Backstage -> Dpad Left;");
+        telemetry.update();
+        questionAnswered = false;
 
+        while (questionAnswered == false){
+            if (gamepad2.dpad_up || gamepad1.dpad_up){
+                BlueAuto = true;
+                questionAnswered = true;
+                telemetry.addLine("Done with question");
+                telemetry.update();
+            } else if (gamepad1.dpad_right || gamepad2.dpad_right) {
+                RedAuto = true;
+                questionAnswered = true;
+
+            } else if (gamepad1.dpad_left || gamepad2.dpad_left) {
+                BackstageAuto = true;
+                questionAnswered = true;
+
+            }
+            else{
+                questionAnswered = false;
+            }
+        }
+        if (questionAnswered) {
+            telemetry.clear();
+            telemetry.update();
+
+
+        }
         waitForStart();
-        // Moves the robot 1-inch.
-        encoderDrive(-0.3, 60, -60, 100000);
-        encoderDrive(-0.5, 79, 79, 100000);
+        // Init the right code
+        if (RedAuto){
+            AutoRed();
+            telemetry.addLine("AutoRed.java");
+            telemetry.update();
+        } else if (BlueAuto) {
+            AutoBlue();
+            telemetry.addLine("AutoBlue.java");
+            telemetry.update();
+        } else if (BackstageAuto) {
+            AutoBackstage();
+            telemetry.addLine("AutoBackstage.java");
+            telemetry.update();
+        } else{
 
+        }
+        telemetry.update();
+        sleep(100000);
 
 
     }
+public void AutoRed(){
+    encoderDrive(-0.3, 60, -60, 100000);
+    encoderDrive(-0.5, 79, 79, 100000);
+    }
+public void AutoBlue(){
+    encoderDrive(-0.3, -58, 58, 100000);
+    encoderDrive(-0.5, 79, 79, 100000);
+}
+public void AutoBackstage(){
+
+    encoderDrive(-0.3, 28, 28, 100000);
+}
 
     /*
      *  Method to perform a relative move, based on encoder counts.
