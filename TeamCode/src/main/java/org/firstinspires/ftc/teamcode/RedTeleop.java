@@ -85,7 +85,7 @@ public class RedTeleop extends LinearOpMode {
                 forward=-gamepad1.left_stick_y;
                 strafe=gamepad1.left_stick_x;
             }
-            turn.setPower(gamepad2.right_stick_y);
+            turn.setPower(gamepad2.right_stick_y/4);
 
             boolean turnRight=gamepad1.right_bumper;
             boolean turnLeft=gamepad1.left_bumper;
