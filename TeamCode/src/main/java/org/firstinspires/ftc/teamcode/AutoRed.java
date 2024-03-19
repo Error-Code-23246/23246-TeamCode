@@ -116,7 +116,7 @@ public class AutoRed extends LinearOpMode {
         telemetry.update();
         questionAnswered = false;
 
-        while (questionAnswered == false){
+        while (!questionAnswered){
             if (gamepad2.dpad_up || gamepad1.dpad_up){
                 BlueAuto = true;
                 questionAnswered = true;
